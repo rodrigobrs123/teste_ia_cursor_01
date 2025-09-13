@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Global styles and CSS variables for theme accents */
+:root {
+  --brand: 232 56% 55%;
+  --brand-foreground: 0 0% 100%;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-neutral-50 text-neutral-900 antialiased;
+}
+
+.container-responsive {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-md bg-[hsl(var(--brand))] px-4 py-2 text-sm font-semibold text-[hsl(var(--brand-foreground))] shadow-sm transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[hsl(var(--brand))];
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-sm ring-1 ring-black/5;
+}
