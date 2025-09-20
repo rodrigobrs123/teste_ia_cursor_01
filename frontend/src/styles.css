@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  @apply bg-neutral-950 text-neutral-100 antialiased;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.8px);
+  -webkit-backdrop-filter: blur(6.8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.container-px {
+  @apply px-4 md:px-6 lg:px-10;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 text-white hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center rounded-md border border-neutral-700 px-4 py-2 hover:bg-neutral-900 transition-colors;
+}
+
+.card {
+  @apply glass rounded-xl p-4 border border-neutral-800;
+}
+
+.title-gradient {
+  background: linear-gradient(90deg, #6bffb7, #22ee92, #07cf77);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+

@@ -1,3 +1,29 @@
+FROM php:8.3-fpm
+
+# System deps
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libpq-dev \
+    libicu-dev \
+    libonig-dev \
+    && docker-php-ext-install pdo pdo_mysql zip intl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# Copy entrypoint and app overrides
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+COPY app-overrides /opt/app-overrides
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+
 FROM php:8.3-apache
 
 # System deps
