@@ -1,64 +1,65 @@
-version: "3.9"
+version: '3.8'
 
 services:
+  # MySQL Database
   mysql:
     image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: sports_store_db
+    restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-sports_store}
-      MYSQL_USER: ${MYSQL_USER:-app}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-appsecret}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootsecret}
+      MYSQL_DATABASE: sports_store
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: password
+      MYSQL_USER: laravel
+    volumes:
+      - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - sports_network
 
-  backend:
+  # Laravel Backend API
+  laravel:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      args:
-        APP_NAME: "SportsStore"
-    env_file:
-      - ./backend/.env.docker
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: ${MYSQL_DATABASE:-sports_store}
-      DB_USERNAME: ${MYSQL_USER:-app}
-      DB_PASSWORD: ${MYSQL_PASSWORD:-appsecret}
-      NUVEM_PAGO_BASE_URL: ${NUVEM_PAGO_BASE_URL:-https://api.nuvempago.com}
-      NUVEM_PAGO_API_KEY: ${NUVEM_PAGO_API_KEY:-changeme}
-      APP_URL: http://localhost:8080
-    ports:
-      - "8080:80"
-    depends_on:
-      mysql:
-        condition: service_healthy
+    container_name: sports_store_api
+    restart: unless-stopped
+    working_dir: /var/www
     volumes:
-      - laravel_storage:/var/www/html/storage
-      - ./backend_overlay:/docker-backend-overlay:ro
+      - ./backend:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=sports_store
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=password
+    networks:
+      - sports_network
 
-  frontend:
+  # React Frontend
+  react:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    environment:
-      VITE_API_URL: ${VITE_API_URL:-http://localhost:8080/api}
-    ports:
-      - "5173:5173"
+    container_name: sports_store_frontend
+    restart: unless-stopped
     volumes:
       - ./frontend:/app
-    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
-    depends_on:
-      - backend
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    networks:
+      - sports_network
 
 volumes:
-  db_data:
-  laravel_storage:
+  mysql_data:
 
+networks:
+  sports_network:
+    driver: bridge
