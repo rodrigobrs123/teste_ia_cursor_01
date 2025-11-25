@@ -1,0 +1,46 @@
+<svg width="1200" height="1600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="1600" fill="#0B3D68"/>
+  
+  <!-- Main Title -->
+  <text x="600" y="300" font-family="Arial Black, sans-serif" font-size="120" font-weight="900" fill="white" text-anchor="middle">
+    DESENVOLVEDOR
+  </text>
+  
+  <text x="600" y="440" font-family="Arial Black, sans-serif" font-size="120" font-weight="900" fill="white" text-anchor="middle">
+    DE SITES
+  </text>
+  
+  <text x="600" y="580" font-family="Arial Black, sans-serif" font-size="120" font-weight="900" fill="white" text-anchor="middle">
+    E SISTEMAS
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="730" font-family="Arial, sans-serif" font-size="52" font-weight="normal" fill="white" text-anchor="middle">
+    Criação de Sites Profissionais
+  </text>
+  
+  <!-- Centered "Sistemas Web" -->
+  <text x="600" y="830" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white" text-anchor="middle">
+    Sistemas Web
+  </text>
+  
+  <!-- Technologies -->
+  <text x="600" y="960" font-family="Arial, sans-serif" font-size="56" font-weight="normal" fill="white" text-anchor="middle">
+    PHP " React " SQL " APIs " Automação
+  </text>
+  
+  <!-- Contact Info -->
+  <text x="600" y="1200" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">
+    Whatsapp: (21)99909-1004
+  </text>
+  
+  <!-- Portfolio -->
+  <text x="600" y="1330" font-family="Arial, sans-serif" font-size="44" font-weight="normal" fill="white" text-anchor="middle">
+    Meu portifólio: https://rodrigobrs1
+  </text>
+  
+  <text x="600" y="1410" font-family="Arial, sans-serif" font-size="44" font-weight="normal" fill="white" text-anchor="middle">
+    23.github.io/rodrigobarreto.github.io
+  </text>
+</svg>
